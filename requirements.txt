@@ -1,0 +1,14 @@
+# numpy==1.23.2 
+fastapi
+uvicorn
+ibm-generative-ai
+ibm-generative-ai[langchain]
+python-dotenv
+huggingface_hub
+langchain 
+pinecone-client
+sentence_transformers
+chromadb
+unstructured
+pdf2image
+pdfminer.six --no-deps
