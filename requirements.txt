@@ -1,7 +1,7 @@
 fastapi
 huggingface_hub
-ibm-generative-ai
-ibm-generative-ai[langchain]
+# ibm-generative-ai
+# ibm-generative-ai[langchain]
 langchain
 pdf2image
 pdfminer.six
@@ -10,4 +10,4 @@ python-dotenv
 sentence_transformers
 unstructured
 uvicorn
-openai
+# openai
