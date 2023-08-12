@@ -1,16 +1,31 @@
-# Base image - Python (Alpine)
-FROM python:3.11-alpine3.18
-# Setting up the required env vars
+FROM python:3.8-slim
+
 ENV PINECONE_API_KEY=""
 ENV PINECONE_API_ENV=""
 ENV HUGGINGFACEHUB_API_TOKEN=""
-# Creating Work directory to be used and copying the contents
+
 WORKDIR /src
 COPY . /src
-# Running important commands in the container
-RUN apk add --no-cache gcc vim curl && \
-pip install -r requirements.txt --no-cache-dir
-# Port 8000 is chosen because of uvicorn
-EXPOSE 8000
-# Actual command to be executed
+
+RUN apt update && \
+    apt install --no-install-recommends -y build-essential gcc && \
+    apt clean && rm -rf /var/lib/apt/lists/* && \ 
+    pip3 install --no-cache-dir -r requirements.txt
 CMD ["uvicorn", "main:app", "--host", "0.0.0.0"]
+EXPOSE 8000
+# ---
+# FROM python:3.8-alpine
+
+# ENV PINECONE_API_KEY=""
+# ENV PINECONE_API_ENV=""
+# ENV HUGGINGFACEHUB_API_TOKEN=""
+
+# WORKDIR /src
+# COPY . /src
+
+# RUN apk update && \
+#     apk add --no-cache build-base gcc && \
+#     pip3 install --no-cache-dir -r requirements.txt
+
+# CMD ["uvicorn", "main:app", "--host", "0.0.0.0"]
+# EXPOSE 8000

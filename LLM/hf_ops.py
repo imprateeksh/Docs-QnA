@@ -24,14 +24,13 @@ PINE_API_KEY = os.getenv("PINECONE_API_KEY", None)
 PINE_ENV = os.getenv("PINECONE_API_ENV", None)
 HF_TOKEN = os.getenv("HUGGINGFACEHUB_API_TOKEN", None)
 
-
-def load_doc(doc_path='resources/icr-docs.pdf'):
+def load_doc(doc_path=const.DOC_PATH):
     """Load the PDF document(s)"""
     llm_logger.info("Loading file")
     loader = UnstructuredPDFLoader(doc_path)
     return loader.load()
 
-def text_split(chunk_size=1000,chunk_overlap=100):
+def text_split(chunk_size=1000,chunk_overlap=0):
     """Split the text in chunks from the loaded document."""
     data = load_doc()
     llm_logger.debug(f"Total {len(data)} documents to be searched for the queries.")
@@ -74,11 +73,14 @@ def get_answer(
         ):
     """Process the query asked and return the answer."""
     try:
+        if HF_TOKEN is None or PINE_ENV is None or PINE_API_KEY is None:
+            return const.MSG_ENV_MISSING
+        
         obj_llm=HuggingFaceHub(
             repo_id=model, 
             model_kwargs={
                 "temperature":temp, 
-                "max_length":model_max_length
+                # "max_length":model_max_length
                 },
             huggingfacehub_api_token = HF_TOKEN
             )
@@ -91,6 +93,3 @@ def get_answer(
     except Exception as e:
         llm_logger.error(f"Unable to process query: {e}")
         return const.ERR_GENERIC_EXCPN
-
-
-get_answer("What is Cloud Advocate?")
