@@ -2,8 +2,10 @@
 
 import uvicorn
 from fastapi import FastAPI
-from logger import llm_logger
+from common.logger import llm_logger
 from LLM import hf_ops
+from Other import error_resolution as er
+from Other import new_hire
 
 app = FastAPI()
 
@@ -21,11 +23,22 @@ def conversation(query:str):
     ans = hf_ops.get_answer(query)
     return ans
 
+@app.get('/support')
+def common_error_support(query:str):
+    """Get the quick resolution for common errors"""
+    llm_logger.info(f"Getting answers for: {query}")
+    ans = er.common_errors_resolution(query)
+    return ans
+
 # @app.get('/tune')
 # def model_tune(model_name:str, **kwargs):
 #     """Fine tune the models."""
 #     pass
 
+@app.get('/checklist')
+def new_hire_checklist():
+    response = new_hire.present_new_hire_checklist()
+    return response
 
 # Test method to verify images to skills
 @app.get("/image")

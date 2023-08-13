@@ -1,0 +1,22 @@
+# Ignore specific files
+*.log
+*.bak
+
+# Ignore directories
+node_modules/
+__pycache__/
+venv/
+.idea/
+.vscode/
+
+# Ignore version control system metadata
+.git/
+.svn/
+
+# Ignore IDE-specific files
+*.pyc
+*.pyo
+
+# Ignore build artifacts
+dist/
+build/

@@ -55,7 +55,7 @@ paths:
             application/json:
               schema:
                 properties:
-                  qna_data:
+                  IBM Cloud Docs Response:
                     type: string
                     x-ibm-show: true
         '422':
@@ -80,15 +80,124 @@ paths:
           description: Successful Response
           content:
             application/json:
-              schema: {}
+              schema:
+                $ref: '#/components/schemas/Image'
+                properties:
+                  Image shown:
+                    type: string
+                    x-ibm-show: true
         '422':
           description: Validation Error
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/HTTPValidationError'
+  /support:
+    get:
+      summary: Quick Error Support
+      description: Resolution for commonly seen errors
+      operationId: common_error_support_support_get
+      parameters:
+        - required: true
+          schema:
+            type: string
+            title: Support for error resolution
+            x-ibm-show: true
+            x-ibm-prompt : "Please mention the error faced?"
+          name: query
+          in: query
+          description: Answers to frequent errors.
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Support'
+                properties:
+                  Resolution suggested:
+                    type: string
+                    x-ibm-show: true
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /checklist:
+    get:
+      summary: New Hire Checklist
+      operationId: new_hire_checklist_checklist_get
+      description: Get the information required for new employees.
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NewHires'
+                properties:
+                  Presenting the first hand information for new hires:
+                    type: string
+                    x-ibm-show: true
 components:
+  securitySchemes:  # Add this section for security schemes
+    api_key:
+      type: apiKey
+      name: X-API-Key
+      in: header
   schemas:
+    Support:
+      type: object
+      properties:
+        Quick Error Resolution:
+          type: object
+          properties:
+            description:
+              type: string
+            solution:
+              type: string
+    Image:
+      type: object
+      properties:
+        Test Images:
+          type: object
+          properties:
+            filename:
+              type: string
+            base64_encoded_data:
+              type: string
+              format: base64
+    Hires:
+      type: object
+      properties:
+        Team_Name:
+          type: string
+          enum:
+            - GoldenEye
+            - Support
+            - Dreadnought
+        Org:
+          type: string
+        About:
+          type: string
+        Technical_doc:
+          type: string
+        Coding_Guidelines:
+          type: string
+        Access_Requests:
+          type: string
+        Tech_Stack:
+          type: string
+        Start:
+          type: string
+    NewHires:
+      type: object
+      properties:
+        IBM New Hires Support:
+          type: array
+          items:
+            $ref: '#/components/schemas/Hires'
     HTTPValidationError:
       properties:
         detail:
