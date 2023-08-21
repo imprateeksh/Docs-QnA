@@ -68,5 +68,5 @@ async def get_image(url="https://www.google.com/url?sa=i&url=https%3A%2F%2Fleade
     return json_data
 
 if __name__ == "__main__": 
-    uvicorn.run(app, host='0.0.0.0', port=8000)
+    uvicorn.run(app, host='0.0.0.0', port=8000, debug= True)
     llm_logger.debug("Server started")

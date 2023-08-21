@@ -1,14 +1,11 @@
-fastapi
-huggingface_hub
-# ibm-generative-ai
-# ibm-generative-ai[langchain]
-langchain
+sentence_transformers
 pdf2image
 pdfminer.six
-pinecone-client
-python-dotenv
-sentence_transformers
 unstructured
-unstructured[local-inference]
+langchain
+chromadb
+# pinecone-client
+huggingface-hub
+fastapi
 uvicorn
-# openai
+python-dotenv

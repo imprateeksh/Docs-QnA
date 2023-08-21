@@ -13,7 +13,7 @@ logging.basicConfig(
 # handler = logging.StreamHandler()
 # handler.setLevel(logging.INFO) 
 
-# Add a rotating log handler as the log file size was drastically increasing
+# Add a rotating log handler as the log file size was drastically increasing (When using PineCone)
 log_handler = logging.handlers.RotatingFileHandler(
     const.LOG_FILE_NAME,
     maxBytes=500 * 1024 * 1024,  # 500 MB

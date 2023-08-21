@@ -1,0 +1,1 @@
+# This is to show the integration using OpenAI and FAISS vector DB.
