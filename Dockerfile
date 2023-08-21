@@ -12,7 +12,7 @@ EXPOSE 8000
 # RUN apk update && \
 # apk add --no-cache libvirt build-base gcc rust cargo openssl
 #rust cargo openssl openssl-dev git
-RUN pip3 install --no-cache-dir -r req.txt
+RUN pip3 install --no-cache-dir -r requirements.txt
 
 CMD ["uvicorn", "main:app", "--host", "0.0.0.0"]
 # CMD ["sleep", "infinity"]
